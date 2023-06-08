@@ -2,7 +2,9 @@
 import hashlib
 import os
 
+# Define the directories to search
 directories_to_search = ['/dir1', '/dir2']
+# Specify the path of the stored hashes file
 output_file_path = '/hash.txt'
 
 def save_file_hashes(directories, output_file):
