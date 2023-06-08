@@ -24,7 +24,8 @@ hashmonitor.sh se recomienda ejecutarlo mediante crontab
 0 */1 * * * python3 /storage/scripts/hashmonitor.sh
 
 La creación de los hash (hashcreation.sh) se debe ejecutar de forma manual siempre y cuando estemos seguros de que nuestro sitio está limpio y ejecutarlo cada vez que realicemos una modificación de algún archivo que se encuentre dentro de los directorios monitoreados.
-Los directorios a monitorear/excluir se deben setear en el código de los scripts 
+Los directorios a monitorear/excluir se deben setear en el código de los scripts.
+El archivo donde se almacenaran los hash debe ser creado de forma manual.
 
 # English
 # HashMonitor
@@ -52,4 +53,5 @@ hashmonitor.sh is recommended to be run via crontab
 0 */1 * * * python3 /storage/scripts/hashmonitor.sh
 
 The creation of the hash (hashcreation.sh) must be executed manually as long as we are sure that our site is clean and run it every time we make a modification to a file that is found within the monitored directories.
-The directories to monitor/exclude must be set in the code of the scripts
+The directories to monitor/exclude must be set in the code of the scripts.
+The file where the hashes will be stored must be created manually.
