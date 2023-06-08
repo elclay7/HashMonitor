@@ -34,10 +34,8 @@ both scripts have verbose.
 ### Running in production
 
 1. **Creation of the hashes:** the creation of the hash must be executed manually **hashcreation.sh** as long as we are sure that our site is clean and run it every time we make a modification to a file that is found within the monitored directories.
-2. **Search for new or changed files:** Execute the **hashmonitor.sh** script via crontab 
-
-`0 */1 * * * python3 /storage/scripts/hashmonitor.sh`
-
+2. **Search for new or changed files:** Execute the **hashmonitor.sh** script via crontab
+`0 */1 * * * python3 /hashmonitor.sh`
 If it finds any modified or new file, it will be notified via email.
 
 #### Important:
