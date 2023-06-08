@@ -11,7 +11,7 @@
     + os
     + smtplib
 
-### Execution
+### How does it work
 
 The repo contains 2 scripts:
 
