@@ -1,4 +1,4 @@
-Español
+# Español
 # HashMonitor
  Monitoreo de archivos utilizando hashes
 
@@ -19,11 +19,12 @@ python3 hashcreation.sh
 python3 hashmonitor.sh
 
 hashmonitor.sh se recomienda ejecutarlo mediante crontab
+
 0 */1 * * * python3 /storage/scripts/hashmonitor.sh
 
 La creación de los hash (hashcreation.sh) se debe ejecutar de forma manual siempre y cuando estemos seguros de que nuestro sitio está limpio y ejecutarlo cada vez que realicemos una modificación de algún archivo que se encuentre dentro de los directorios monitoreados.
 
-English
+# English
 # HashMonitor
  Monitoring files using hashes
 
@@ -44,6 +45,7 @@ python3 hashcreation.sh
 python3 hashmonitor.sh
 
 hashmonitor.sh is recommended to be run via crontab
+
 0 */1 * * * python3 /storage/scripts/hashmonitor.sh
 
 The creation of the hash (hashcreation.sh) must be executed manually as long as we are sure that our site is clean and run it every time we make a modification to a file that is found within the monitored directories.
