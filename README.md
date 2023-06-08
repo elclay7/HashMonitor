@@ -1,57 +1,45 @@
-# Español
-# HashMonitor
- Monitoreo de archivos utilizando hashes
+### Features
 
-El repo contiene 2 scripts:
+- Monitoring files using hashes.
+- Notifications via mail when finding a new or modified file.
 
-1. hashcreation.sh - Busca los hash de todos los archivos que se encuentren en los directorios seleccionados y guarda esos hash en el archivo hash.txt
+![](https://github.com/elclay7/HashMonitor/img/lupa.webp)
 
-2. hashmonitor.sh - Busca los hash de todos los archivos que se encuentren en los directorios seleccionados y los compara con los almacenados en hash.txt
+###What I need
 
-Realiza una notificación vía correo si encuentra:
++ Linux server
++ Python3
+    + hashlib
+    + os
+    + smtplib
 
-1. Archivos modificados: El hash encontrado no coincide con el almacenado en hash.txt
-2. Archivos nuevos: El hash encontrado no existe en hash.txt
-
-Ejecución manual del script
-
-python3 hashcreation.sh
-
-python3 hashmonitor.sh
-
-hashmonitor.sh se recomienda ejecutarlo mediante crontab
-
-0 */1 * * * python3 /storage/scripts/hashmonitor.sh
-
-La creación de los hash (hashcreation.sh) se debe ejecutar de forma manual siempre y cuando estemos seguros de que nuestro sitio está limpio y ejecutarlo cada vez que realicemos una modificación de algún archivo que se encuentre dentro de los directorios monitoreados.
-Los directorios a monitorear/excluir se deben setear en el código de los scripts.
-El archivo donde se almacenaran los hash debe ser creado de forma manual.
-
-# English
-# HashMonitor
- Monitoring files using hashes
+###Execution
 
 The repo contains 2 scripts:
 
-1. hashcreation.sh - Finds the hashes of all files found in the selected directories and saves those hashes to the file hash.txt
+- **hashcreation.sh** - Finds the hashes of all files found in the selected directories and saves those hashes to the file hash.txt
+- **hashmonitor.sh** - Looks up the hashes of all files in the selected directories and compares them with those stored in hash.txt
 
-2. hashmonitor.sh - Looks up the hashes of all files in the selected directories and compares them with those stored in hash.txt
+Will notify you by mail when:
 
-Email notification if:
+- **Files changed**: The hash found does not match the one stored in hash.txt
+- **New files**: Found hash does not exist in hash.txt
 
-1. Files changed: The hash found does not match the one stored in hash.txt
-2. New files: Found hash does not exist in hash.txt
+###Run for tests
 
-Manual execution of the script
+`python3 hashcreation.sh`
 
-python3 hashcreation.sh
+`python3 hashmonitor.sh`
 
-python3 hashmonitor.sh
+both scripts have verbose.
 
-hashmonitor.sh is recommended to be run via crontab
+###Running in production
 
-0 */1 * * * python3 /storage/scripts/hashmonitor.sh
+1. **Creation of the hashes:** the creation of the hash must be executed manually **hashcreation.sh** as long as we are sure that our site is clean and run it every time we make a modification to a file that is found within the monitored directories.
+2. **Search for new or changed files:** Execute the **hashmonitor.sh** script via crontab
+`0 */1 * * * python3 /storage/scripts/hashmonitor.sh`
+If it finds any modified or new file, it will be notified via email.
 
-The creation of the hash (hashcreation.sh) must be executed manually as long as we are sure that our site is clean and run it every time we make a modification to a file that is found within the monitored directories.
-The directories to monitor/exclude must be set in the code of the scripts.
-The file where the hashes will be stored must be created manually.
+####Important:
+- The directories to monitor/exclude must be set in the code of the scripts.
+- The file where the hashes will be stored must be created manually and its path must be set in the script.
