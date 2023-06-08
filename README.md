@@ -37,6 +37,7 @@ both scripts have verbose.
 2. **Search for new or changed files:** Execute the **hashmonitor.sh** script via crontab
 
 `0 */1 * * * python3 /hashmonitor.sh`
+
 If it finds any modified or new file, it will be notified via email.
 
 #### Important:
