@@ -1,7 +1,7 @@
 ### Features
 
 - Monitoring files using hashes.
-- Notifications via mail when finding a new or modified file.
+- Notifications via mail and telegram when finding a new or modified file.
 
 ### What I need
 
@@ -18,7 +18,7 @@ The repo contains 2 scripts:
 - **hashcreation.sh** - Finds the hashes of all files found in the selected directories and saves those hashes to the file hash.txt
 - **hashmonitor.sh** - Looks up the hashes of all files in the selected directories and compares them with those stored in hash.txt
 
-Will notify you by mail when:
+Will notify you by mail and telegram when:
 
 - **Files changed**: The hash found does not match the one stored in hash.txt
 - **New files**: Found hash does not exist in hash.txt
@@ -38,7 +38,7 @@ both scripts have verbose.
 
 `0 */1 * * * python3 /hashmonitor.sh`
 
-If it finds any modified or new file, it will be notified via email.
+If it finds any modified or new file, it will be notified via email and telegram.
 
 #### Important:
 - The directories to monitor/exclude must be set in the code of the scripts.
