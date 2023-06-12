@@ -10,6 +10,7 @@
     + hashlib
     + os
     + smtplib
+    + requests
 
 ### How does it work
 
