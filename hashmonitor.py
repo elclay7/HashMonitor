@@ -3,13 +3,18 @@ import hashlib
 import os
 import smtplib
 from email.mime.text import MIMEText
+import requests
 
-# Define the directories to search
+# Search directories
 directories_to_search = ['/dir1', '/dir2']
-# Exclude directories from the comparison
+# Directories to exclude
 excluded_directories = ['/dir1/a', '/dir1/b']
-# Specify the path of the stored hashes file
+# Hash file path
 hash_file_path = '/hash.txt'
+
+# Telegram conf
+telegram_token = 'YOUR_TELEGRAM_BOT_TOKEN'
+telegram_chat_id = 'YOUR_TELEGRAM_CHAT_ID'
 
 def calculate_file_hash(file_path):
     with open(file_path, 'rb') as file_obj:
@@ -17,29 +22,37 @@ def calculate_file_hash(file_path):
         hash_value = hashlib.sha256(content).hexdigest()
         return hash_value
 
+# Mail conf
 def send_email(subject, body):
-    # Configure email settings
     sender = 'some@email.com'
     receiver = 'some@email.com'
-    smtp_server = 'some@email.com'
+    smtp_server = 'smtp.email.com'
     smtp_port = 587
     username = 'some@email.com'
     password = 'password' 
-    # Create email message
+
     message = MIMEText(body)
     message['Subject'] = subject
     message['From'] = sender
     message['To'] = receiver
-    # Send email
     with smtplib.SMTP(smtp_server, smtp_port) as server:
         server.starttls()
         server.login(username, password)
         server.send_message(message)
 
+def send_telegram_message(message):
+    url = f'https://api.telegram.org/bot{telegram_token}/sendMessage'
+    data = {
+        'chat_id': telegram_chat_id,
+        'text': message
+    }
+    response = requests.post(url, json=data)
+    if response.status_code != 200:
+        print(f"Failed to send Telegram message. Error code: {response.status_code}")
+
 def compare_file_hashes(directories, hash_file):
     modified_files = []
     new_files = []
-    # Read stored hashes from the file
     stored_hashes = {}
     with open(hash_file, 'r') as f:
         for line in f:
@@ -48,7 +61,6 @@ def compare_file_hashes(directories, hash_file):
     
     for directory in directories:
         for root, dirs, files in os.walk(directory):
-            # Exclude specific directories
             dirs[:] = [d for d in dirs if os.path.join(root, d) not in excluded_directories]
             
             for file in files:
@@ -67,29 +79,25 @@ def compare_file_hashes(directories, hash_file):
 
 print("Comparing file hashes...")
 
-# Compare file hashes
 modified_files, new_files = compare_file_hashes(directories_to_search, hash_file_path)
 
-# Prepare email notifications
 subject = 'File Hash Comparison'
 body = ''
 
-# Notify about modified files
 if modified_files:
     body += 'Modified files:\n'
     body += '\n'.join(modified_files)
     body += '\n\n'
     print("Modified files found.")
 
-# Notify about new files
 if new_files:
     body += 'New files:\n'
     body += '\n'.join(new_files)
     print("New files found.")
 
-# Send email if modifications or new files found
 if modified_files or new_files:
     send_email(subject, body)
-    print("Email notification sent.")
+    send_telegram_message(f"{subject}\n\n{body}")
+    print("Email and Telegram notification sent.")
 else:
     print("No modified or new files found.")
